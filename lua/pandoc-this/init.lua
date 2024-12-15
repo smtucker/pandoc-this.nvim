@@ -20,6 +20,11 @@ function M.current_buffer()
   file:write(text)
   file:close()
 
+  local xdg_open = Job:new({
+    command = 'xdg-open',
+    args = { output_tmpfile },
+  })
+
   local pandoc = Job:new({
     command = 'pandoc',
     args = { '-f', 'markdown', '-t', 'docx', '-o', output_tmpfile, input_tmpfile },
@@ -27,9 +32,7 @@ function M.current_buffer()
       os.remove(input_tmpfile) -- Clean up the temporary input file.
 
       if exit_code == 0 or exit_code == nil then
-        vim.schedule(function()
-          vim.api.nvim_command('!xdg-open ' .. output_tmpfile)
-        end)
+        xdg_open:start()
       else
         vim.api.nvim_err_writeln('Pandoc conversion failed with exit code: ' .. exit_code)
       end
