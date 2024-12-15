@@ -1,5 +1,6 @@
-on: [push]
-paths: = 'docs/**'
+on:
+  push:
+    paths: ['docs/**']
 jobs:
   docs:
     runs-on: ubuntu-latest

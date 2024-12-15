@@ -4,6 +4,7 @@ on: [push]
 
 jobs:
   lint:
+    name: Check Stylua
     permissions:
       contents: write
     runs-on: ubuntu-latest

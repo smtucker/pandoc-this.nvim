@@ -22,7 +22,7 @@ function M.current_buffer()
 
   local pandoc = Job:new({
     command = 'pandoc',
-    args = {'-f', 'markdown', '-t', 'docx', '-o', output_tmpfile, input_tmpfile},
+    args = { '-f', 'markdown', '-t', 'docx', '-o', output_tmpfile, input_tmpfile },
     on_exit = function(j, exit_code)
       os.remove(input_tmpfile) -- Clean up the temporary input file.
 
@@ -33,8 +33,7 @@ function M.current_buffer()
       else
         vim.api.nvim_err_writeln('Pandoc conversion failed with exit code: ' .. exit_code)
       end
-    end
-
+    end,
   })
 
   pandoc:start()
